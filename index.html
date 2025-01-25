@@ -1,0 +1,110 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-Based Product Recommendations</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather-Based Shopping Assistant</h1>
+            <div id="userInfo" class="user-info">
+                <!-- User info will be populated by JavaScript -->
+            </div>
+        </header>
+
+        <div id="authForms" class="auth-forms">
+            <div id="loginForm" class="auth-form">
+                <h2>Login</h2>
+                <form id="loginFormElement">
+                    <input type="text" id="loginUsername" placeholder="Username" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+            </div>
+
+            <div id="registerForm" class="auth-form hidden">
+                <h2>Register</h2>
+                <form id="registerFormElement">
+                    <input type="text" id="registerUsername" placeholder="Username" required>
+                    <input type="password" id="registerPassword" placeholder="Password" required>
+                    <input type="number" id="registerAge" placeholder="Age" required>
+                    <select id="registerGender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </div>
+        </div>
+
+        <div id="mainContent" class="hidden">
+            <form id="locationForm" class="location-form">
+                <input type="text" id="locationInput" placeholder="Enter your location" required>
+                <button type="submit">Get Recommendations</button>
+            </form>
+
+            <div id="loadingIndicator" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Finding the best products for you...</p>
+            </div>
+
+            <div id="errorMessage" class="error-message hidden"></div>
+
+            <div id="weatherInfo" class="weather-info hidden">
+                <!-- Weather info will be populated by JavaScript -->
+            </div>
+
+            <div id="recommendationSection" class="recommendations hidden">
+                <div id="recommendationList">
+                    <!-- Product recommendations will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p> 2024 Weather-Based Shopping Assistant</p>
+            <nav>
+                <a href="#" id="logoutButton" class="hidden">Logout</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        // Check authentication status
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/user');
+                if (!response.ok) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                const userData = await response.json();
+                document.getElementById('userInfo').textContent = 
+                    `Welcome, ${userData.username} (Age: ${userData.age}, Gender: ${userData.gender}) | `;
+            } catch (error) {
+                window.location.href = '/login.html';
+            }
+        }
+
+        async function logout() {
+            await fetch('/api/logout');
+            window.location.href = '/login.html';
+        }
+
+        document.getElementById('logoutButton').addEventListener('click', logout);
+
+        // Check authentication when page loads
+        checkAuth();
+    </script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
