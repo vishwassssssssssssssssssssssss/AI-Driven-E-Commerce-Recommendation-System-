@@ -357,11 +357,11 @@ def get_recommendations():
         recommendations = {
             "rain": [
                 {"name": "Umbrella", "price": 10.99, "image": "https://images.unsplash.com/photo-1558181048-e7631fe070a7?w=400"},
-                {"name": "Raincoat", "price": 29.99, "image": "https://images.unsplash.com/photo-1521223619409-8c925ee108eb?w=400"}
+                {"name": "Raincoat", "price": 50.99, "image": "https://images.unsplash.com/photo-1521223619409-8c925ee108eb?w=400"}
             ],
             "sunny": [
                 {"name": "Sunglasses", "price": 9.99, "image": "https://images.unsplash.com/photo-1577803645773-f96470509666?w=400"},
-                {"name": "Sun hat", "price": 14.99, "image": "https://images.unsplash.com/photo-1521223619409-8c925ee108eb?w=400"}
+                {"name": "Sun cool", "price": 20.99, "image": "https://images.unsplash.com/photo-1521223619409-8c925ee108eb?w=400"}
             ]
         }
         
